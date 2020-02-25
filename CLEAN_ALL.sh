@@ -14,5 +14,10 @@ kubectl delete pod --all --namespace=default
 
 # DELETE ALL SERVICES IN NAMESPACE DEFAULT
 svcToDelete=`kubectl get service | awk {'print $1'}  | sed '/NAME/d' | sed '/kubernetes/d'`
-kubectl delete service $svcToDelete --namespace=default
-
+if [ "$svcToDelete" == "" ]
+then
+  echo "Aucun Service"
+else
+  echo "Suppression des services " $svcToDelete
+  kubectl delete service $svcToDelete --namespace=default
+fi
