@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cf-web
+  name: cf-web-service
+  namespace: default
+spec:
+  ports:
+    -
+      targetPort : 80
+      nodePort: 31200
+      port: 31180
+  selector:
+    app: cf-web
+  type: NodePort
+
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cf-web
+  name: deployment-v1
+  namespace: default
+spec:
+  minReadySeconds: 0
+  replicas: 10
+  selector:
+    matchLabels:
+      app: cf-web
+  template:
+    metadata:
+      labels:
+        app: cf-web
+    spec:
+      containers:
+      - image: cferber/cf-web:blue
+        name: cf-web
+        ports:
+        - containerPort: 80
