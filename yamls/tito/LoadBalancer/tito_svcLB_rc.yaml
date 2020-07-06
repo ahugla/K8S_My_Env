@@ -17,9 +17,9 @@ spec:
           image: vmeoc/tito-fe:V1.9.4
           env:
           - name: TITO_VERSION
-            value: V1.9.2
+            value: V2.4
           - name: PROXY_NAME
-            value: wvfp1.cpod-vr.shwrfr.mooo.com
+            value: wvfp.cpod-vrealizesuite.az-demo.shwrfr.com
           - name: PROXY_PORT
             value: "2878"
 
