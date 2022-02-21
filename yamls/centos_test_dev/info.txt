@@ -1,0 +1,1 @@
+CentOS 7.x with nc, bind-utils et stress
