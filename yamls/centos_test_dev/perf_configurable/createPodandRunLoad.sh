@@ -1,7 +1,7 @@
 #
 #  USAGE:
-#  ./script.sh [CPU LIMIT en m]  [MEM LIMIT en Mi]  [duree du stress en sec]
-#  ./script.sh  1000  2000 3600  (limite du pod a: 1 CPU et 2 Go RAM et stress pendant 3600sec)
+#  ./createPodandRunLoad.sh  [CPU LIMIT en m]  [MEM LIMIT en Mi]  [duree du stress en sec]
+#  ./createPodandRunLoad.sh  1000  2000 3600  (limite du pod a: 1 CPU et 2 Go RAM et stress pendant 3600sec)
 #
 #
 
@@ -43,7 +43,7 @@ echo "Nombre de worker de stress memoire: "$nbre
 # on attend que le pod soit ready puis on execute la commande pour charger le pod
 sleep 3
 commandline="stress --cpu 8 --io 4  --vm $nbre  --vm-bytes 128M --timeout $STRESSDURATION"
-kubectl exec -it $podname -- /bin/bash -c "$commandline"
+nohup kubectl exec -it $podname -- /bin/bash -c "$commandline"
 
 
 # Exemple de commande passée
