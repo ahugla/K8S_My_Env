@@ -1,0 +1,48 @@
+#  POD de test de perf avec limit.
+#  container avec packages: bind-utils, nc et stress
+#      ex:  stress --cpu 8 --io 4 --vm 2 --vm-bytes 128M --timeout 10s
+
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: centos-test-dev                  # nom du RC et des PODS
+spec:
+  replicas: 2
+  selector:
+    app: centos-test-dev
+  template:
+    metadata:
+      #generateName: centos-test-dev-   # INUTILE car surcharge par: nom du RC-xxxxx
+      labels:
+        app: centos-test-dev
+    spec:
+      containers:
+        - name: centos-test-dev-container   # Nom du container docker : centos-test-dev_container.<ID>  (docker ps)
+          image: alexfr75/centos_test_dev:1.0
+          resources:
+          #requests:
+          #  cpu: "100m"
+          #  memory: "50Mi"
+            limits:
+              cpu: "900m"
+              memory: "500Mi"
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: centos-test-dev    # nom du Service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+  selector:
+    app: centos-test-dev
+
+

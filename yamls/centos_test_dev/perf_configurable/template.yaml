@@ -1,0 +1,31 @@
+
+#  POD de test de perf avec limit.
+#
+#  container avec packages: bind-utils, nc et stress
+#      ex:  stress --cpu 8 --io 4 --vm 2 --vm-bytes 128M --timeout 10s
+#
+#  Configure LIMITCPU and LIMITMEMORY, for instance 'cpu: "900m" ' and 'memory: "500Mi"'
+#
+#
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  generateName: centos-perf-
+  labels:
+    app: alex-perf
+spec:
+  containers:
+    - name: centos-test-dev-container          # Nom du container docker : centos-test-dev_container.<ID>  (docker ps)
+      image: alexfr75/centos_test_dev:1.0
+      resources:
+      #requests:
+      #  cpu: "100m"
+      #  memory: "50Mi"
+        limits:
+          cpu: "$${LIMITCPU}"
+          memory: "$${LIMITMEMORY}"
+
+
+
