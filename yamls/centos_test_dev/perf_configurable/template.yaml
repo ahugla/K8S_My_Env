@@ -20,12 +20,13 @@ spec:
     - name: centos-test-dev-container          # Nom du container docker : centos-test-dev_container.<ID>  (docker ps)
       image: alexfr75/centos_test_dev:1.0
       resources:
-      #requests:
-      #  cpu: "100m"
-      #  memory: "50Mi"
+        requests:					     # Si on ne mets pas request à 0, alors il force request = limit et on n'a plus beaucoup de place pour les autres pods
+          cpu: "0"					
+          memory: "0"
         limits:
           cpu: "$${LIMITCPU}"
           memory: "$${LIMITMEMORY}"
+
 
 
 
